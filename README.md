@@ -12,3 +12,4 @@ Hello, My name is Joseph Cognata. I am currently a senior student at Eastern Mic
 ### Shunsuke Asai
 
 ### Todd Shmayda
+Computer Scientist major who is currently a senior student at Eastern Michigan University.My goal for this project is to get hands on experience with Unity and C#.
