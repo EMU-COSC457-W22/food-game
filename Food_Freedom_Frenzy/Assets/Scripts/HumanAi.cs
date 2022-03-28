@@ -24,7 +24,7 @@ public class HumanAi : MonoBehaviour
     
     private void Awake() 
     {
-        player = GameObject.Find("TempPlayer").transform;
+        player = GameObject.Find("Player").transform;
         startPosition = GameObject.Find("StartPosition").transform;
         agent = GetComponent<NavMeshAgent>();
         speed = agent.speed;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,10 +10,17 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 0;
     private float movementX;
     private float movementY;
+    public TextMeshProUGUI countText;
+    public GameObject winTextObject;
+    private int count;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        count = 0;
+
+        SetCountText();
+        winTextObject.SetActive(false);
     }
     void OnMove(InputValue movementValue)
     {
@@ -34,6 +42,18 @@ public class PlayerMovement : MonoBehaviour
         if(other.gameObject.CompareTag("FoodItem"))
         {
             other.gameObject.SetActive(false);
+            count = count + 1;
+
+            SetCountText();
+        }
+    }
+
+    void SetCountText()
+    {
+        countText.text = "Count: " + count.ToString() + " / 5";
+        if (count >= 5)
+        {
+            winTextObject.SetActive(true);
         }
     }
 }
