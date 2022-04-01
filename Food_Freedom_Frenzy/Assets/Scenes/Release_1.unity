@@ -1389,10 +1389,6 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
-      propertyPath: attackRange
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: patrolPoints.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -1500,10 +1496,6 @@ PrefabInstance:
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: sightRange
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
-      propertyPath: attackRange
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: patrolPoints.Array.size
@@ -2005,10 +1997,6 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
-      propertyPath: attackRange
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: patrolPoints.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2375,10 +2363,6 @@ PrefabInstance:
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: sightRange
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
-      propertyPath: attackRange
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: patrolPoints.Array.size
@@ -3229,10 +3213,6 @@ PrefabInstance:
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: sightRange
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
-      propertyPath: attackRange
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4611979855701633214, guid: 76e5557b28ab6cb4b893a7ac77fe992d, type: 3}
       propertyPath: patrolPoints.Array.size
