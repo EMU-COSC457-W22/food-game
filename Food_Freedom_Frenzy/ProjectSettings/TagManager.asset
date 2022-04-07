@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - FoodItem
   - PickUp_Food
+  - Wall
   layers:
   - Default
   - TransparentFX
