@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 5250205281402031370}
   m_Layer: 0
   m_Name: PickUp_Food TRAIL
-  m_TagString: PickUp_Food
+  m_TagString: PickUp_FoodTrail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

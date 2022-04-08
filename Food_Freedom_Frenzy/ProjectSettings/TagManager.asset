@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PickUp_Food
   - Wall
+  - PickUp_FoodTrail
   layers:
   - Default
   - TransparentFX
