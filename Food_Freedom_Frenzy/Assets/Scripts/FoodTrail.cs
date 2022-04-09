@@ -42,7 +42,7 @@ public class FoodTrail : MonoBehaviour
 
    void Grow()
    {
-      GameObject trail = Instantiate(TrailPrefab);
+      GameObject trail = Instantiate(TrailPrefab, transform.position + (transform.forward*2), transform.rotation);
       TrailList.Add(trail);
    }
 
