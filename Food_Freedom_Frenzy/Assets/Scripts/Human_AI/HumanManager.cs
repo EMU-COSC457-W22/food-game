@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class HumanManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HumanManager : MonoBehaviour
     public ChaseState chase;
     public AttackState attack;
     public SuspiciousState suspicious;
+    public string currentScene;
 
     // public LocomotionManager locomotionManager;
 
@@ -51,6 +53,8 @@ public class HumanManager : MonoBehaviour
 
     private void Awake() 
     {
+        currentScene = SceneManager.GetActiveScene().name;
+
         /* Initialize states for state machine */
         GameObject states = GameObject.Find("States");
         idle = states.GetComponentInChildren<IdleState>();
