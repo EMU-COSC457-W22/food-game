@@ -47,14 +47,16 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
-        rb.AddForce(movement * speed);
+        rb.velocity = movement * speed;
+       // transform.position += movement * speed;
+       // rb.AddForce(movement * speed);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("PickUp_Food"))
         {
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
             count = count + 1;
 
             SetCountText();
