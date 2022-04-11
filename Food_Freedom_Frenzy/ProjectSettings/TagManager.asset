@@ -7,6 +7,7 @@ TagManager:
   - PickUp_Food
   - Wall
   - PickUp_FoodTrail
+  - TempPlayer
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - UI
   - Ground
   - Player
-  - 
+  - Obstacle
   - 
   - 
   - 
