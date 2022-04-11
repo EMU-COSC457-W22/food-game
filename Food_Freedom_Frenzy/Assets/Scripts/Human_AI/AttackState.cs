@@ -10,22 +10,20 @@ public class AttackState : State
         Debug.Log("I am in the attack state");
 
         /* Temporary way of triggering correct game over screen to restart current level */
-        if ((human.currentTarget.CompareTag("Player") /* || human.currentTarget.CompareTag("TrailingFoodItem") */)) {
-            if (human.currentScene == "Release_2")
-            {
-                SceneManager.LoadScene("GameOver1");
-            }
-            else
-            {
-                SceneManager.LoadScene("GameOver2");
-            }
-        }  
+        if (human.currentTarget.CompareTag("Player")) {
+            
+        }
+        SceneManager.LoadScene("GameOver1");
+        
+       
     }
 
     public override void UpdateState(HumanManager human)
     {
         float distanceToTarget = Vector3.Distance(human.transform.position, human.currentTarget.position);
 
+        
+        
         if (distanceToTarget > human.attackRadius && distanceToTarget < human.viewRadius) {
             human.SwitchState(human.chase);
         }
@@ -33,5 +31,21 @@ public class AttackState : State
         if (distanceToTarget > human.attackRadius && distanceToTarget > human.viewRadius) {
             human.SwitchState(human.patrol);
         }
+
+        Vector3 relativeNormalizedPosition = (human.player.position - human.transform.position);
+        float dotProduct = Vector3.Dot(relativeNormalizedPosition, human.transform.forward);
+
+        float angle = Mathf.Acos(dotProduct);
+
+        if (angle < human.viewAngle && human.distanceFromPlayer <= human.attackRadius)
+        {
+            SceneManager.LoadScene("GameOver1");
+        }
+
+        // if (angle < human.viewAngle && human.distanceFromPlayer > human.attackRadius)
+        // {
+        //     human.currentTarget = human.player;
+        //     human.SwitchState(human.chase);
+        // }
     }
 }

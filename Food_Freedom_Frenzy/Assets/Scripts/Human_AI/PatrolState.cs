@@ -21,7 +21,7 @@ public class PatrolState : State
         }
         
         /* Start chasing player or attack player if already in range */
-        if ((human.currentTarget.CompareTag("Player") /* || human.currentTarget.CompareTag("TrailingFoodItem") */)) {
+        if ((human.currentTarget.CompareTag("Player")  || human.currentTarget.CompareTag("PickUp_FoodTrail"))) {
             
             float distanceToTarget = Vector3.Distance(human.transform.position, human.currentTarget.position);
             

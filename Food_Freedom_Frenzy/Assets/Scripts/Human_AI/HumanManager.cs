@@ -28,10 +28,11 @@ public class HumanManager : MonoBehaviour
     [Header("Set In Inspector")]
     public LayerMask detectionLayer;
     public LayerMask obstacleLayer;
-    public Transform player;
+    
     
     [Header("Set Dynamically")]
     public Transform currentTarget;
+    public Transform player;
     public float distanceFromPlayer;
 
     [Header("Suspicious Settings")]

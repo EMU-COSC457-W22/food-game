@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChaseState : State
 {
-    float _speedModifier = 1.25f;   // increase or decrease speed by 50%
+    float _speedModifier = 1.35f;   // increase or decrease speed by 50%
     float _currentSpeed;
 
     public override void EnterState(HumanManager human)

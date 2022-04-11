@@ -16,31 +16,43 @@ public class SuspiciousState : State
     public override void UpdateState(HumanManager human)
     {
         human.transform.Rotate(Vector3.up, human.turnSpeed * Time.deltaTime);
+        // human.HandleDetection();
 
-        if (!human.currentTarget.CompareTag("Player")) {
-            if (human.currentSuspicionTime >= human.maxSuspicionTime) {
-                human.currentSuspicionTime = 0;
-                human.SwitchState(human.patrol);
-            } else {
-                human.currentSuspicionTime += Time.deltaTime;
-            }
-        } else {
+        Vector3 relativeNormalizedPosition = (human.player.position - human.transform.position);
+        float dotProduct = Vector3.Dot(relativeNormalizedPosition, human.transform.forward);
+
+        float angle = Mathf.Acos(dotProduct);
+
+        if (angle < human.viewAngle && human.distanceFromPlayer <= human.attackRadius)
+        {
             human.currentSuspicionTime = 0;
+            human.currentTarget = human.player;
+            human.SwitchState(human.attack);
+        }
+
+        if (angle < human.viewAngle && human.distanceFromPlayer > human.attackRadius)
+        {
+            human.currentSuspicionTime = 0;
+            human.currentTarget = human.player;
             human.SwitchState(human.chase);
         }
         
-    }
-
-    IEnumerator LookAround(HumanManager human)
-    {
-        human.transform.Rotate(Vector3.up, human.turnSpeed * Time.deltaTime);
         if (human.currentTarget.CompareTag("Player")) {
+            human.currentSuspicionTime = 0;
             human.SwitchState(human.chase);
-            yield return null;
+            
         } else {
-            yield return new WaitForSeconds(5);
-            human.SwitchState(human.patrol);
+            if (human.currentSuspicionTime >= human.maxSuspicionTime)
+            {
+                human.currentSuspicionTime = 0;
+                human.SwitchState(human.patrol);
+            }
+            else
+            {
+                human.currentSuspicionTime += Time.deltaTime;
+            }
         }
+        
         
     }
 }
