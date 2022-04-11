@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - FoodItem
   - PickUp_Food
+  - Wall
+  - PickUp_FoodTrail
   - TempPlayer
   layers:
   - Default
