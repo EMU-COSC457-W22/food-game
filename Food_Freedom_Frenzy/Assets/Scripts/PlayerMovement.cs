@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private float movementX;
     private float movementY;
     public TextMeshProUGUI countText;
-    public GameObject winTextObject;
     private int count;
+
+    public GameObject[] foodItems;
 
     void Start()
     {
@@ -20,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
         count = 0;
 
         SetCountText();
-        winTextObject.SetActive(false);
     }
     void OnMove(InputValue movementValue)
     {
@@ -39,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("FoodItem"))
+        if(other.gameObject.CompareTag("PickUp_Food"))
         {
             other.gameObject.SetActive(false);
             count = count + 1;
@@ -50,10 +51,10 @@ public class PlayerMovement : MonoBehaviour
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString() + " / 5";
-        if (count >= 5)
+        countText.text = "Count: " + count.ToString() + " / " + foodItems.Length;
+        if (count == foodItems.Length)
         {
-            winTextObject.SetActive(true);
+            SceneManager.LoadScene("WinScreen");
         }
     }
 }
