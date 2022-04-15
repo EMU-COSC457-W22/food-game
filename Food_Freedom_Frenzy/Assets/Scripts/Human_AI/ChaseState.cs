@@ -17,7 +17,7 @@ public class ChaseState : State
 
     public override void UpdateState(HumanManager human)
     {
-        human.transform.LookAt(human.currentTarget);
+        // human.transform.LookAt(human.currentTarget);
         human.agent.SetDestination(human.currentTarget.position);
         float distanceToTarget = Vector3.Distance(human.transform.position, human.currentTarget.position);
         _currentSpeed = human.agent.speed;

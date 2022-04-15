@@ -57,7 +57,7 @@ public class HumanManager : MonoBehaviour
         currentScene = SceneManager.GetActiveScene().name;
 
         /* Initialize states for state machine */
-        GameObject states = GameObject.Find("States");
+        GameObject states = transform.Find("States").gameObject;
         idle = states.GetComponentInChildren<IdleState>();
         patrol = states.GetComponentInChildren<PatrolState>();
         chase = states.GetComponentInChildren<ChaseState>();
@@ -130,7 +130,12 @@ public class HumanManager : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstacleLayer))
                 {
-                    currentTarget = target;
+                    
+                    if (target.CompareTag("PickUp_FoodTrail")) {
+                        currentTarget = player.transform;
+                    } else {
+                        currentTarget = target;
+                    }
                 }
             }
         }
