@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private float movementX;
     private float movementY;
     public TextMeshProUGUI countText;
-    private int count;
+    [HideInInspector]
+    public int count = 0;
 
     public GameObject[] foodItems;
 
@@ -47,14 +48,15 @@ public class PlayerMovement : MonoBehaviour
 
             SetCountText();
         }
+
+         if(other.gameObject.CompareTag("GoalZone"))
+        {
+            SceneManager.LoadScene("NextLevel");
+        }
     }
 
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString() + " / " + foodItems.Length;
-        if (count == foodItems.Length)
-        {
-            SceneManager.LoadScene("WinScreen");
-        }
     }
 }

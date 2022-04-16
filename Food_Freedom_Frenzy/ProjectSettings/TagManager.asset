@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - PickUp_FoodTrail
   - TempPlayer
+  - GoalZone
   layers:
   - Default
   - TransparentFX
