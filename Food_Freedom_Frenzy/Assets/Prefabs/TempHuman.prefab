@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: -6803865964136740427}
   m_Layer: 0
   m_Name: TempHuman
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,8 +383,8 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
-  player: {fileID: 0}
   currentTarget: {fileID: 0}
+  player: {fileID: 0}
   distanceFromPlayer: 0
   maxSuspicionTime: 5
   currentSuspicionTime: 0

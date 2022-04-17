@@ -13,7 +13,7 @@ public class AttackState : State
         if (human.currentTarget.CompareTag("Player")) {
             
         }
-        SceneManager.LoadScene("GameOver1");
+       // SceneManager.LoadScene("GameOver1");
         
        
     }

@@ -9,6 +9,7 @@ TagManager:
   - PickUp_FoodTrail
   - TempPlayer
   - GoalZone
+  - Human
   layers:
   - Default
   - TransparentFX
