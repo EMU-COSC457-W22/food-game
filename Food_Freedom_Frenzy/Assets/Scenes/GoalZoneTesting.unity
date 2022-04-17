@@ -4123,7 +4123,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4328,7 +4328,7 @@ PrefabInstance:
       objectReference: {fileID: 1223361797}
     - target: {fileID: 4251897400465657937, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
       propertyPath: sprintSpeed
-      value: 0.4
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 4251897400465657937, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
       propertyPath: sprintTimer
@@ -4449,6 +4449,18 @@ PrefabInstance:
     - target: {fileID: 4251897400465657941, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251897400465657942, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251897400465657942, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251897400465657942, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4251897400465657943, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
       propertyPath: m_Enabled

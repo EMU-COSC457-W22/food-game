@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 0;
     public float walkSpeed = 0;
     public float sprintSpeed = 0;
-    public float currentSprintTimer;
+    public float currentSprintTimer = 0.0f;
     public float sprintTimer = 100;
     private float movementX;
     private float movementY;
@@ -38,6 +38,20 @@ public class PlayerMovement : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
+
+
+    void Update()
+    {
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = sprintSpeed;
+        }
+
+        else
+        {
+            moveSpeed = walkSpeed;
+        }
+    }
    
     void FixedUpdate()
     {
@@ -54,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
              }
             else 
             {
-                sprintSpeed = walkSpeed; 
+                moveSpeed = walkSpeed; 
             }
         }
         //if player is not Sprinting
@@ -62,18 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSprintTimer += 1;
             sprintMeter.SetMeter(currentSprintTimer);
-        }
-
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            moveSpeed = sprintSpeed;
-        }
-
-        else
-        {
-            moveSpeed = walkSpeed;
-        }
-    
+        }          
     }
 
     private void OnTriggerEnter(Collider other)
