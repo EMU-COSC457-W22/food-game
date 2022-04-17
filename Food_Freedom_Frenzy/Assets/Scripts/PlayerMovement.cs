@@ -8,10 +8,15 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    public float speed = 0;
+    public float moveSpeed = 0;
+    public float walkSpeed = 0;
+    public float sprintSpeed = 0;
+    public float currentSprintTimer;
+    public float sprintTimer = 100;
     private float movementX;
     private float movementY;
     public TextMeshProUGUI countText;
+    public SprintMeter sprintMeter;
     [HideInInspector]
     public int count = 0;
 
@@ -23,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
         count = 0;
 
         SetCountText();
+        currentSprintTimer = sprintTimer;
+        sprintMeter.SetMaxValue(sprintTimer);
     }
     void OnMove(InputValue movementValue)
     {
@@ -36,7 +43,37 @@ public class PlayerMovement : MonoBehaviour
     {
        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
-        transform.position += movement * speed;
+        transform.position += movement * moveSpeed;
+
+        if (moveSpeed == sprintSpeed)
+         {
+            if (currentSprintTimer >= 2)
+             {
+                currentSprintTimer += -2;
+                sprintMeter.SetMeter(currentSprintTimer);
+             }
+            else 
+            {
+                sprintSpeed = walkSpeed; 
+            }
+        }
+        //if player is not Sprinting
+        else if (currentSprintTimer < sprintTimer)
+        {
+            currentSprintTimer += 1;
+            sprintMeter.SetMeter(currentSprintTimer);
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = sprintSpeed;
+        }
+
+        else
+        {
+            moveSpeed = walkSpeed;
+        }
+    
     }
 
     private void OnTriggerEnter(Collider other)

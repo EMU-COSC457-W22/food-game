@@ -8,7 +8,7 @@ public class Enable_Goal_Zone : MonoBehaviour
     
     void Start()
     {
-        //GoalPrefab.SetActive(false);
+        GoalPrefab.SetActive(false);
     }
 
     void EnableGoal()
