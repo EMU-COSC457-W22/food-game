@@ -4755,6 +4755,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4251897400465657944, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
+      propertyPath: TrailSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780eee863ce3f424faa32844dd6f76d9, type: 3}
 --- !u!1 &1325190237
