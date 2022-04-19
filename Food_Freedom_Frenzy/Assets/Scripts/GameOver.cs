@@ -7,7 +7,8 @@ public class GameOver : MonoBehaviour
 {
     public void RestartLevelOne()
     {
-        SceneManager.LoadScene("Release_2");
+        // SceneManager.LoadScene("Release_2");
+        SceneManager.LoadScene("Release_2_COPY");
     }
 
     public void RestartLevelTwo()

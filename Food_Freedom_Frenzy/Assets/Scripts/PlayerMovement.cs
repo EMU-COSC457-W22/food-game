@@ -33,9 +33,14 @@ public class PlayerMovement : MonoBehaviour
    
     void FixedUpdate()
     {
-       Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
         transform.position += movement * speed;
+
+        /* Makes player face direction it's traveling */
+        if (movement != Vector3.zero) {
+            transform.forward = movement;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
