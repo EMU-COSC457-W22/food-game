@@ -8,12 +8,22 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    public float speed = 0;
+    [Header("Movement")]
+    public Vector3 movement;
+    public float moveSpeed = 0;
+    public float walkSpeed = 0;
+    public float sprintSpeed = 0;
+    public float sprintTimer = 100;
+    private bool isEmpty = false;
+    //private bool isFull = false;
+    private bool isRunning = false;
     private float movementX;
     private float movementY;
     public TextMeshProUGUI countText;
-    private int count;
-
+    public SprintMeter sprintMeter;
+    [HideInInspector]
+    public int count = 0;
+    public float currentSprintTimer = 0.0f;
     public GameObject[] foodItems;
 
     void Start()
@@ -22,25 +32,112 @@ public class PlayerMovement : MonoBehaviour
         count = 0;
 
         SetCountText();
+        currentSprintTimer = sprintTimer;
+        sprintMeter.SetMaxValue(sprintTimer);
+        moveSpeed = walkSpeed;
     }
-    void OnMove(InputValue movementValue)
-    {
-        Vector2 movementVector = movementValue.Get<Vector2>();  
+   // void OnMove(InputValue movementValue)
+   // {
+   //     Vector2 movementVector = movementValue.Get<Vector2>();  
 
-        movementX = movementVector.x;
-        movementY = movementVector.y;
+   //     movementX = movementVector.x;
+    //    movementY = movementVector.y;
+    //}
+
+
+    void moveCharacter(Vector3 direction)
+    {
+        rb.velocity = direction * moveSpeed * Time.fixedDeltaTime;
     }
-   
-    void FixedUpdate()
+
+    void Update()
     {
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-
-        transform.position += movement * speed;
-
+        movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        
         /* Makes player face direction it's traveling */
         if (movement != Vector3.zero) {
             transform.forward = movement;
         }
+        
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            isRunning = true;
+        }
+
+        else
+        {
+            isRunning = false;
+        }
+    }
+
+   
+    void FixedUpdate()
+    {
+        moveCharacter(movement);
+
+        if(currentSprintTimer <= 0.1f)
+        {
+            isEmpty = true;
+        }
+        else
+        {
+            isEmpty = false;
+        }
+       
+       StartCoroutine(sprintPlayer());  
+    }
+
+    IEnumerator sprintPlayer()
+    {
+         //Meter is not empty
+        if (!isEmpty)
+        {   //Player is holding shift
+            if (isRunning)
+            {
+                if (currentSprintTimer >= 2)
+                {
+                    moveSpeed = sprintSpeed;
+                    currentSprintTimer += -2;
+                    sprintMeter.SetMeter(currentSprintTimer);
+                }
+                else 
+                {
+                    moveSpeed = walkSpeed; 
+                }
+            } 
+            //Meter is not empty, player is not holding shift
+            else
+            {
+                moveSpeed = walkSpeed;
+                if (currentSprintTimer < sprintTimer)
+                {
+                currentSprintTimer += 1;
+                sprintMeter.SetMeter(currentSprintTimer);
+                }
+            }  
+        }
+        //Meter is empty
+        else 
+        {
+            moveSpeed = walkSpeed;
+            if (currentSprintTimer < sprintTimer)
+        {
+            currentSprintTimer += 1;
+            sprintMeter.SetMeter(currentSprintTimer);
+           
+        } 
+            yield return new WaitUntil(isFull); 
+        }        
+    }
+
+    private bool isFull()
+    {
+        if(currentSprintTimer == sprintTimer)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,14 +149,15 @@ public class PlayerMovement : MonoBehaviour
 
             SetCountText();
         }
+
+         if(other.gameObject.CompareTag("GoalZone"))
+        {
+            SceneManager.LoadScene("NextLevel");
+        }
     }
 
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString() + " / " + foodItems.Length;
-        if (count == foodItems.Length)
-        {
-            SceneManager.LoadScene("WinScreen");
-        }
     }
 }
