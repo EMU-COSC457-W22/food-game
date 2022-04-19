@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class HumanManager : MonoBehaviour
 {
+    Animator animator;
+    int isWalkingHash;
+    int isRunningHash;
+
     [Header("States")]
     public State currentState;
     public IdleState idle;
@@ -13,9 +17,16 @@ public class HumanManager : MonoBehaviour
     public ChaseState chase;
     public AttackState attack;
     public SuspiciousState suspicious;
-    public string currentScene;
 
-    // public LocomotionManager locomotionManager;
+    [Header("Set In Inspector")]
+    public LayerMask detectionLayer;
+    public LayerMask obstacleLayer;
+
+    [Header("Set Dynamically")]
+    public Transform currentTarget;
+    public Transform player;
+    public float distanceFromPlayer;
+    public string currentScene;
 
     [Header("Field of View Settings")]
     public float viewRadius;
@@ -25,47 +36,47 @@ public class HumanManager : MonoBehaviour
     [Range(0, 360)]
     public float viewAngle;
 
-    [Header("Set In Inspector")]
-    public LayerMask detectionLayer;
-    public LayerMask obstacleLayer;
-    
-    
-    [Header("Set Dynamically")]
-    public Transform currentTarget;
-    public Transform player;
-    public float distanceFromPlayer;
-
-    [Header("Suspicious Settings")]
-    public float maxSuspicionTime;
-    public float currentSuspicionTime;
-    public float turnSpeed;
-
-    [Header("Patrol Settings")]
-    public Transform[] patrolPoints;
+    [Header("Idle Settings")]
     public float maxWaitingTime;
     public float currentWaitingTime;
 
+    [Header("Patrol Settings")]
+    public Transform[] patrolPoints;
+    public int randomSpot;
+
+    [Header("Suspicious Settings")]
+    public float maxSuspicionTime = 5f;
+    public float currentSuspicionTime;
+    public float turnSpeed = 100f;
+
     [Header("Chase Settings")]
-    public float maxChaseOutsideRangeTime;
+    public float maxChaseOutsideRangeTime = 2f;
     public float currentChaseOutsideRangeTime;
 
     [HideInInspector]
     public NavMeshAgent agent;
 
-    private void Awake() 
+    private void Start() 
     {
+        /* Get the name of the current scene. May be helpful for scene reloading from a gameover screen */
         currentScene = SceneManager.GetActiveScene().name;
 
+        /* Initialize Components */
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        isWalkingHash = Animator.StringToHash("isWalking");
+        isRunningHash = Animator.StringToHash("isRunning");
+
         /* Initialize states for state machine */
-        GameObject states = GameObject.Find("States");
+        GameObject states = transform.Find("States").gameObject;
         idle = states.GetComponentInChildren<IdleState>();
         patrol = states.GetComponentInChildren<PatrolState>();
         chase = states.GetComponentInChildren<ChaseState>();
         attack = states.GetComponentInChildren<AttackState>();
         suspicious = states.GetComponentInChildren<SuspiciousState>();
 
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player").transform;
+        /* Set the player position as something to constantly be aware of */
+        player = GameObject.Find("AppleModel").transform;
 
         /* Start with the patrol state */
         currentState = patrol;
@@ -76,6 +87,7 @@ public class HumanManager : MonoBehaviour
     {
         HandleDetection();
         currentState.UpdateState(this);
+        HandleAnimationStates();
     }
 
     public void SwitchState(State state)
@@ -94,9 +106,9 @@ public class HumanManager : MonoBehaviour
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
-    /* Visualizes view radius and FOV in the scene window */
     private void OnDrawGizmosSelected()
     {
+        // Visualizes view radius and FOV in the scene window 
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, viewRadius);
         Gizmos.color = Color.yellow;
@@ -128,11 +140,41 @@ public class HumanManager : MonoBehaviour
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
+                /* target cannot be detected if there's an obstacle in the way */
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstacleLayer))
                 {
-                    currentTarget = target;
+                    
+                    if (target.CompareTag("PickUp_FoodTrail")) {
+                        currentTarget = player.transform;
+                    } else {
+                        currentTarget = target;
+                    }
                 }
             }
+        }
+    }
+
+    public void HandleAnimationStates()
+    {
+        /* Play walking animation in patrol state */
+        if (currentState == patrol)
+        {
+            animator.SetBool(isWalkingHash, true);
+            animator.SetBool(isRunningHash, false);
+        }
+
+        /* Play idle animation in idle or suspicious state */
+        if (currentState == idle || currentState == suspicious)
+        {
+            animator.SetBool(isWalkingHash, false);
+            animator.SetBool(isRunningHash, false);
+        }
+
+        /* Play running animation in chase state */
+        if (currentState == chase)
+        {
+            animator.SetBool(isWalkingHash, false);
+            animator.SetBool(isRunningHash, true);
         }
     }
 }

@@ -53,7 +53,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-
+        
+        /* Makes player face direction it's traveling */
+        if (movement != Vector3.zero) {
+            transform.forward = movement;
+        }
+        
         if(Input.GetKey(KeyCode.LeftShift))
         {
             isRunning = true;

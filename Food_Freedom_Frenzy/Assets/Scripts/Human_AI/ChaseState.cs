@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChaseState : State
 {
-    float _speedModifier = 1.35f;   // increase or decrease speed by 50%
+    float _speedModifier = 1.60f;   // increase or decrease speed by 50%
     float _currentSpeed;
 
     public override void EnterState(HumanManager human)
@@ -17,7 +17,7 @@ public class ChaseState : State
 
     public override void UpdateState(HumanManager human)
     {
-        human.transform.LookAt(human.currentTarget);
+        // human.transform.LookAt(human.currentTarget);
         human.agent.SetDestination(human.currentTarget.position);
         float distanceToTarget = Vector3.Distance(human.transform.position, human.currentTarget.position);
         _currentSpeed = human.agent.speed;

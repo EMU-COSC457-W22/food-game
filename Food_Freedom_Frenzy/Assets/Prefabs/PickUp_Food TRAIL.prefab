@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2766111977020735689}
   m_Layer: 7
   m_Name: Stem
-  m_TagString: Untagged
+  m_TagString: PickUp_FoodTrail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2766111977256415631}
   m_Layer: 7
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: PickUp_FoodTrail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
