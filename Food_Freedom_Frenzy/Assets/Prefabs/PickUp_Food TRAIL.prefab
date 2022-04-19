@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2766111977020735689}
   m_Layer: 7
   m_Name: Stem
-  m_TagString: Untagged
+  m_TagString: PickUp_FoodTrail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2766111977256415631}
   m_Layer: 7
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: PickUp_FoodTrail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 2766111977589539770}
   - component: {fileID: 6312860550863404825}
   - component: {fileID: 5250205281402031370}
+  - component: {fileID: -5281710427411403641}
   m_Layer: 7
   m_Name: PickUp_Food TRAIL
   m_TagString: PickUp_FoodTrail
@@ -253,3 +254,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-5281710427411403641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2766111977589539748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d02524bd869b3544947fd61b1c417d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrailingPrefab: {fileID: 2766111977589539748}
+  FoodPickup: {fileID: 2766111977589539748, guid: 4c946a072277b574d9c82a4afc20da03, type: 3}
