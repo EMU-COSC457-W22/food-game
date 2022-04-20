@@ -19,6 +19,11 @@ public class Enable_Goal_Zone : MonoBehaviour
         {
             GoalPrefab.SetActive(true);
         }
+
+        if (playerMovement.count <= playerMovement.foodItems.Length / 2)
+        {
+            GoalPrefab.SetActive(false);
+        }
     }
 
     void FixedUpdate()

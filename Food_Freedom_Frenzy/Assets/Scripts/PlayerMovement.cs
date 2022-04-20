@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     public int count = 0;
     public float currentSprintTimer = 0.0f;
     public GameObject[] foodItems;
+    public bool isRecharging = false;
+    public float rechargeRate = 0;
 
     void Start()
     {
@@ -36,14 +38,6 @@ public class PlayerMovement : MonoBehaviour
         sprintMeter.SetMaxValue(sprintTimer);
         moveSpeed = walkSpeed;
     }
-   // void OnMove(InputValue movementValue)
-   // {
-   //     Vector2 movementVector = movementValue.Get<Vector2>();  
-
-   //     movementX = movementVector.x;
-    //    movementY = movementVector.y;
-    //}
-
 
     void moveCharacter(Vector3 direction)
     {
@@ -75,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveCharacter(movement);
 
-        if(currentSprintTimer <= 0.1f)
+        if(currentSprintTimer <= 0.01f)
         {
             isEmpty = true;
         }
@@ -84,20 +78,21 @@ public class PlayerMovement : MonoBehaviour
             isEmpty = false;
         }
        
-       StartCoroutine(sprintPlayer());  
+    //    StartCoroutine(sprintPlayer());
+       SprintPlayer();
     }
 
-    IEnumerator sprintPlayer()
+    void SprintPlayer()
     {
-         //Meter is not empty
-        if (!isEmpty)
+        //Meter is not empty
+        if (!isEmpty && !isRecharging)
         {   //Player is holding shift
             if (isRunning)
             {
-                if (currentSprintTimer >= 2)
+                if (currentSprintTimer >= 0)
                 {
                     moveSpeed = sprintSpeed;
-                    currentSprintTimer += -2;
+                    currentSprintTimer += -0.50f;
                     sprintMeter.SetMeter(currentSprintTimer);
                 }
                 else 
@@ -111,8 +106,8 @@ public class PlayerMovement : MonoBehaviour
                 moveSpeed = walkSpeed;
                 if (currentSprintTimer < sprintTimer)
                 {
-                currentSprintTimer += 1;
-                sprintMeter.SetMeter(currentSprintTimer);
+                    currentSprintTimer += rechargeRate * Time.deltaTime;
+                    sprintMeter.SetMeter(currentSprintTimer);
                 }
             }  
         }
@@ -120,19 +115,22 @@ public class PlayerMovement : MonoBehaviour
         else 
         {
             moveSpeed = walkSpeed;
+            isRecharging = true;
             if (currentSprintTimer < sprintTimer)
-        {
-            currentSprintTimer += 1;
-            sprintMeter.SetMeter(currentSprintTimer);
-           
-        } 
-            yield return new WaitUntil(isFull); 
+            {
+                currentSprintTimer += rechargeRate * Time.deltaTime;
+                sprintMeter.SetMeter(currentSprintTimer);
+                if (isFull()) {
+                    isRecharging = false;
+                }  
+            } 
+             
         }        
     }
 
     private bool isFull()
     {
-        if(currentSprintTimer == sprintTimer)
+        if(currentSprintTimer >= sprintTimer)
         {
             return true;
         }
@@ -152,11 +150,11 @@ public class PlayerMovement : MonoBehaviour
 
          if(other.gameObject.CompareTag("GoalZone"))
         {
-            SceneManager.LoadScene("NextLevel");
+            SceneManager.LoadScene("GoToLevel_2");
         }
     }
 
-    void SetCountText()
+    public void SetCountText()
     {
         countText.text = "Count: " + count.ToString() + " / " + foodItems.Length;
     }

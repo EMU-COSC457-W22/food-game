@@ -10,7 +10,7 @@ public class FoodTrail : MonoBehaviour
     private Rigidbody rb;
     public GameObject TrailPrefab;
 
-    private List<GameObject> TrailList = new List<GameObject>();
+    public List<GameObject> TrailList = new List<GameObject>();
     private List<Vector3> PositionsHistory = new List<Vector3>();
     // Start is called before the first frame update
     void Start()

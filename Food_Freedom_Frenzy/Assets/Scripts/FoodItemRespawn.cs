@@ -14,7 +14,7 @@ public class FoodItemRespawn : MonoBehaviour
     {
         if (spawnPoints == null)
         {
-        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
+            spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         }
     }
 
@@ -32,8 +32,12 @@ public class FoodItemRespawn : MonoBehaviour
             
 
             GameObject player = GameObject.Find("Player");
+            FoodTrail trail = player.GetComponent<FoodTrail>();
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
             playerMovement.count -= 1;
+            playerMovement.SetCountText();
+            trail.TrailList.Remove(this.gameObject);
+            
         }
     } 
 }

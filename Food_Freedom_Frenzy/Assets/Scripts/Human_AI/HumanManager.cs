@@ -76,7 +76,7 @@ public class HumanManager : MonoBehaviour
         suspicious = states.GetComponentInChildren<SuspiciousState>();
 
         /* Set the player position as something to constantly be aware of */
-        player = GameObject.Find("AppleModel").transform;
+        player = GameObject.Find("Player").transform;
 
         /* Start with the patrol state */
         currentState = patrol;
