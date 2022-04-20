@@ -7,13 +7,17 @@ public class GameOver : MonoBehaviour
 {
     public void RestartLevelOne()
     {
-        // SceneManager.LoadScene("Release_2");
-        SceneManager.LoadScene("Release_2_COPY");
+        SceneManager.LoadScene("Level_1");
     }
 
     public void RestartLevelTwo()
     {
-        SceneManager.LoadScene("Release_2_pt2");
+        SceneManager.LoadScene("Level_2");
+    }
+
+    public void RestartLevelThree()
+    {
+        SceneManager.LoadScene("Level_3");
     }
 
     public void ExitGame()
