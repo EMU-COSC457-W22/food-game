@@ -8,6 +8,9 @@ TagManager:
   - Wall
   - PickUp_FoodTrail
   - TempPlayer
+  - GoalZone
+  - Human
+  - SpawnPoints
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - Ground
   - Player
   - Obstacle
-  - 
+  - Human
   - 
   - 
   - 

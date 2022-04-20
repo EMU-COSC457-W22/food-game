@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class PatrolState : State
 {
-    private int _randomSpot;
-
     public override void EnterState(HumanManager human)
     {
         Debug.Log("I am in the patrol state!");
-        _randomSpot = Random.Range(0, human.patrolPoints.Length);
-        human.maxWaitingTime = Random.Range(2, 5);
-        human.currentTarget = human.patrolPoints[_randomSpot];
+        human.randomSpot = Random.Range(0, human.patrolPoints.Length);
+        human.currentTarget = human.patrolPoints[human.randomSpot];
+        human.agent.SetDestination(human.currentTarget.position);
     }
 
     public override void UpdateState(HumanManager human)
     {
+        /* Switch to suspicious state once player gets in the radius */
         if (human.distanceFromPlayer <= human.detectionRadius) {
             human.SwitchState(human.suspicious);
         }
@@ -35,49 +34,10 @@ public class PatrolState : State
             
         }
         
+        /* Human will idle for some time once they've reached there destination */
         if (human.agent.remainingDistance < 0.5f)
         {
-            if (human.maxWaitingTime == 0)
-            {
-                human.maxWaitingTime = Random.Range(2, 5);
-            }
-
-            if (human.currentWaitingTime >= human.maxWaitingTime)
-            {
-                human.maxWaitingTime = 0;
-                human.currentWaitingTime = 0;
-                _randomSpot = Random.Range(0, human.patrolPoints.Length);
-                human.currentTarget = human.patrolPoints[_randomSpot];
-                human.agent.SetDestination(human.currentTarget.position);
-            }
-            else
-            {
-                human.currentWaitingTime += Time.deltaTime;
-            }
-        }
-    }
-
-    private void SearchNextPosition(HumanManager human)
-    {
-        if (human.agent.remainingDistance < 0.5f)
-        {
-            if (human.maxWaitingTime == 0)
-            {
-                human.maxWaitingTime = Random.Range(2, 5);
-            }
-
-            if (human.currentWaitingTime >= human.maxWaitingTime)
-            {
-                human.maxWaitingTime = 0;
-                human.currentWaitingTime = 0;
-                _randomSpot = Random.Range(0, human.patrolPoints.Length);
-                human.currentTarget = human.patrolPoints[_randomSpot];
-                human.agent.SetDestination(human.patrolPoints[_randomSpot].position);
-            }
-            else
-            {
-                human.currentWaitingTime += Time.deltaTime;
-            }
+            human.SwitchState(human.idle);
         }
     }
 }
