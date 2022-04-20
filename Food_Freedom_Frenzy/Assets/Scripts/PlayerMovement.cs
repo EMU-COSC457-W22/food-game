@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentScene == "Level_3")
             {
-                SceneManager.LoadScene("Wining_Screen");
+                SceneManager.LoadScene("Winning_Screen");
             }
         }
     }
