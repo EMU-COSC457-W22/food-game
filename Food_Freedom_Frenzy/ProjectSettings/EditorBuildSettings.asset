@@ -4,5 +4,32 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Game_Menus/MainMenu.unity
+    guid: 0950f828243cb8c4aad89d1149f5f572
+  - enabled: 1
+    path: Assets/Scenes/Game_Menus/Tutorial.unity
+    guid: fe72a5e9029708241a406035a954e516
+  - enabled: 1
+    path: Assets/Scenes/Level_1.unity
+    guid: 5eb51b3d1b2ec6a4a8a140d4c681b8b4
+  - enabled: 1
+    path: Assets/Scenes/Game_Menus/GameOver.unity
+    guid: 35da43cffc7bcea4082998a9afdc79c7
+  - enabled: 1
+    path: Assets/Scenes/Level_2.unity
+    guid: 662e8efca476e50458358240c78523cc
+  - enabled: 1
+    path: Assets/Scenes/Game_Menus/GameOver_1.unity
+    guid: 7408986c0d09d904999ac9eeb2bbe12f
+  - enabled: 1
+    path: Assets/Scenes/Level_3.unity
+    guid: e6ae9222466540048b21cb2be1bd96e9
+  - enabled: 1
+    path: Assets/Scenes/Game_Menus/GameOver_2.unity
+    guid: cefb0218f53a5134883e156bb839e4dd
+  - enabled: 1
+    path: Assets/Scenes/Game_Menus/Winning_Screen.unity
+    guid: 329f7386f4d90c647bc443a0bc315e29
   m_configObjects: {}

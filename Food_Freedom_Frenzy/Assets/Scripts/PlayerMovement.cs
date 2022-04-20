@@ -28,8 +28,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isRecharging = false;
     public float rechargeRate = 0;
 
+    private string currentScene;
+
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene().name;
+
         rb = GetComponent<Rigidbody>();
         count = 0;
 
@@ -150,7 +154,20 @@ public class PlayerMovement : MonoBehaviour
 
          if(other.gameObject.CompareTag("GoalZone"))
         {
-            SceneManager.LoadScene("GoToLevel_2");
+            if (currentScene == "Level_1")
+            {
+                SceneManager.LoadScene("Level_2");
+            }
+
+            if (currentScene == "Level_2")
+            {
+                SceneManager.LoadScene("Level_3");
+            }
+
+            if (currentScene == "Level_3")
+            {
+                SceneManager.LoadScene("Wining_Screen");
+            }
         }
     }
 

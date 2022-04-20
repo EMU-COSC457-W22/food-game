@@ -11,7 +11,21 @@ public class AttackState : State
 
         /* Temporary way of triggering correct game over screen to restart current level */
         if (human.currentTarget.CompareTag("Player")) {
-            SceneManager.LoadScene("GameOver1");
+            
+            if (human.currentScene == "Level_1") {
+                SceneManager.LoadScene("GameOver");
+            }
+
+            if (human.currentScene == "Level_2")
+            {
+                SceneManager.LoadScene("GameOver_1");
+            }
+
+            if (human.currentScene == "Level_3")
+            {
+                SceneManager.LoadScene("GameOver_2");
+            }
+            
         }
        // SceneManager.LoadScene("GameOver1");
 
