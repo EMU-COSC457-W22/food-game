@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] foodItems;
     public bool isRecharging = false;
     public float rechargeRate = 0;
+    public bool isSafe = false;
 
     private string currentScene;
 
@@ -169,6 +170,21 @@ public class PlayerMovement : MonoBehaviour
             {
                 SceneManager.LoadScene("Winning_Screen");
             }
+        }
+
+        if (other.gameObject.CompareTag("SafeZone"))
+        {
+            isSafe = true;
+            Debug.Log("I am safe!");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("SafeZone"))
+        {
+            isSafe = false;
+            Debug.Log("I am NOT safe!");
         }
     }
 

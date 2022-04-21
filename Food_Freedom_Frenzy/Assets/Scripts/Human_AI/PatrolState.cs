@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PatrolState : State
 {
+    PlayerMovement player;
+
     public override void EnterState(HumanManager human)
     {
         Debug.Log("I am in the patrol state!");
+        player = human.player.GetComponent<PlayerMovement>();
         human.randomSpot = Random.Range(0, human.patrolPoints.Length);
         human.currentTarget = human.patrolPoints[human.randomSpot];
         human.agent.SetDestination(human.currentTarget.position);
@@ -14,23 +17,21 @@ public class PatrolState : State
 
     public override void UpdateState(HumanManager human)
     {
-        PlayerMovement playerMovement = human.player.GetComponent<PlayerMovement>();
-
         /* Switch to suspicious state once player gets in the radius */
-        if (human.distanceFromPlayer <= human.detectionRadius && playerMovement.isRunning) {
+        if (human.distanceFromPlayer <= human.detectionRadius && (!player.isSafe || player.isRunning)) {
             human.SwitchState(human.suspicious);
         }
         
         /* Start chasing player or attack player if already in range */
-        if ((human.currentTarget.CompareTag("Player")  || human.currentTarget.CompareTag("PickUp_FoodTrail"))) {
+        if ((human.currentTarget.CompareTag("Player")  || human.currentTarget.CompareTag("PickUp_FoodTrail")) && !player.isSafe) {
             
             float distanceToTarget = Vector3.Distance(human.transform.position, human.currentTarget.position);
             
-            if (distanceToTarget > human.attackRadius && distanceToTarget < human.viewRadius) {
+            // if (distanceToTarget > human.attackRadius && distanceToTarget < human.viewRadius) {
                 human.SwitchState(human.chase);
-            }
+            // }
 
-            if (distanceToTarget <= human.attackRadius) {
+            if (distanceToTarget <= human.attackRadius && !player.isSafe) {
                 human.SwitchState(human.attack);
             }
             
