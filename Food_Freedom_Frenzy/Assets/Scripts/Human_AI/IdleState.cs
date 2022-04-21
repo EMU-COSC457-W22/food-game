@@ -8,6 +8,7 @@ public class IdleState : State
     {
         Debug.Log("I am in the Idle State");
         human.maxWaitingTime = Random.Range(2, 5);
+        human.agent.SetDestination(human.transform.position);
     }
 
     public override void UpdateState(HumanManager human)

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float sprintTimer = 100;
     private bool isEmpty = false;
     //private bool isFull = false;
-    private bool isRunning = false;
+    public bool isRunning = false;
     private float movementX;
     private float movementY;
     public TextMeshProUGUI countText;
@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         currentScene = SceneManager.GetActiveScene().name;
+        foodItems = GameObject.FindGameObjectsWithTag("PickUp_Food");
 
         rb = GetComponent<Rigidbody>();
         count = 0;

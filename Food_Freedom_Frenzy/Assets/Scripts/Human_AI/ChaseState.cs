@@ -13,12 +13,13 @@ public class ChaseState : State
         
         _currentSpeed = human.agent.speed;
         human.agent.speed = _currentSpeed * _speedModifier;
+        human.agent.SetDestination(human.player.position);
     }
 
     public override void UpdateState(HumanManager human)
     {
         // human.transform.LookAt(human.currentTarget);
-        human.agent.SetDestination(human.currentTarget.position);
+        human.agent.SetDestination(human.player.position);
         float distanceToTarget = Vector3.Distance(human.transform.position, human.currentTarget.position);
         _currentSpeed = human.agent.speed;
 

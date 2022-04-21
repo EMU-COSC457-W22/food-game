@@ -14,8 +14,10 @@ public class PatrolState : State
 
     public override void UpdateState(HumanManager human)
     {
+        PlayerMovement playerMovement = human.player.GetComponent<PlayerMovement>();
+
         /* Switch to suspicious state once player gets in the radius */
-        if (human.distanceFromPlayer <= human.detectionRadius) {
+        if (human.distanceFromPlayer <= human.detectionRadius && playerMovement.isRunning) {
             human.SwitchState(human.suspicious);
         }
         
