@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class ChaseState : State
 {
+    PlayerMovement player;
     float _speedModifier = 1.40f;   // increase or decrease speed by 50%
     float _currentSpeed;
 
     public override void EnterState(HumanManager human)
     {
         Debug.Log("I am in the chase state!");
-        
+        player = human.player.GetComponent<PlayerMovement>();
         _currentSpeed = human.agent.speed;
         human.agent.speed = _currentSpeed * _speedModifier;
+        human.agent.SetDestination(human.player.position);
     }
 
     public override void UpdateState(HumanManager human)
     {
         // human.transform.LookAt(human.currentTarget);
-        human.agent.SetDestination(human.currentTarget.position);
+        human.agent.SetDestination(human.player.position);
         float distanceToTarget = Vector3.Distance(human.transform.position, human.currentTarget.position);
         _currentSpeed = human.agent.speed;
 
@@ -40,7 +42,7 @@ public class ChaseState : State
         }
 
         /* Switch to attack state once in attack range. Also switch back to normal speed */
-        if (distanceToTarget <= human.attackRadius && distanceToTarget < human.viewRadius) {
+        if (distanceToTarget <= human.attackRadius && distanceToTarget < human.viewRadius && !player.isSafe) {
             human.agent.speed = _currentSpeed / _speedModifier;
             human.SwitchState(human.attack);
         }

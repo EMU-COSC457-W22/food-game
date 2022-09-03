@@ -81,6 +81,8 @@ public class HumanManager : MonoBehaviour
         /* Start with the patrol state */
         currentState = patrol;
         currentState.EnterState(this);
+        animator.SetBool(isWalkingHash, true);
+        animator.SetBool(isRunningHash, false);
     }
 
     void Update()
@@ -88,6 +90,7 @@ public class HumanManager : MonoBehaviour
         HandleDetection();
         currentState.UpdateState(this);
         HandleAnimationStates();
+
     }
 
     public void SwitchState(State state)
@@ -147,7 +150,7 @@ public class HumanManager : MonoBehaviour
                     if (target.CompareTag("PickUp_FoodTrail")) {
                         currentTarget = player.transform;
                     } else {
-                        currentTarget = target;
+                        currentTarget = target.transform;
                     }
                 }
             }

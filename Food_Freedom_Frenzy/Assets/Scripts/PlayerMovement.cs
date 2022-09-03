@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float sprintTimer = 100;
     private bool isEmpty = false;
     //private bool isFull = false;
-    private bool isRunning = false;
+    public bool isRunning = false;
     private float movementX;
     private float movementY;
     public TextMeshProUGUI countText;
@@ -27,12 +27,14 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] foodItems;
     public bool isRecharging = false;
     public float rechargeRate = 0;
+    public bool isSafe = false;
 
     private string currentScene;
 
     void Start()
     {
         currentScene = SceneManager.GetActiveScene().name;
+        foodItems = GameObject.FindGameObjectsWithTag("PickUp_Food");
 
         rb = GetComponent<Rigidbody>();
         count = 0;
@@ -168,6 +170,21 @@ public class PlayerMovement : MonoBehaviour
             {
                 SceneManager.LoadScene("Winning_Screen");
             }
+        }
+
+        if (other.gameObject.CompareTag("SafeZone"))
+        {
+            isSafe = true;
+            Debug.Log("I am safe!");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("SafeZone"))
+        {
+            isSafe = false;
+            Debug.Log("I am NOT safe!");
         }
     }
 
